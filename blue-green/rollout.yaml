@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: demo-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: demo-app
+  template:
+    metadata:
+      labels:
+        app: demo-app
+    spec:
+      containers:
+      - name: demo-app
+        image: amit1159/hotstar:latest
+        ports:
+        - containerPort: 3000
+  strategy:
+    blueGreen:
+      activeService: demo-active
+      previewService: demo-preview
+      autoPromotionEnabled: false
