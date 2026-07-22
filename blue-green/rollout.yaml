@@ -2,6 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
   name: demo-app
+  namespace: default
 spec:
   replicas: 2
 
@@ -15,11 +16,11 @@ spec:
         app: demo-app
     spec:
       containers:
-      - name: demo-app
-        image: amit1159/hotstar:latest
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 3000
+        - name: demo-app
+          image: amit1159/hotstar
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
 
   strategy:
     blueGreen:
