@@ -1,29 +1,17 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Rollout
-metadata:
-  name: demo-app
-  namespace: default
-spec:
-  replicas: 5
-  selector:
-    matchLabels:
-      app: demo-app
-  template:
-    metadata:
-      labels:
-        app: demo-app
-    spec:
-      containers:
-      - name: demo-app
-        image: amit1159/hotstar
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 3000
-  strategy:
-    canary:
-      steps:
+strategy:
+  canary:
+    stableService: demo-stable
+    canaryService: demo-canary
+
+    trafficRouting:
+      nginx:
+        stableIngress: demo-ingress
+
+    steps:
       - setWeight: 20
       - pause: {}
+
       - setWeight: 50
       - pause: {}
+
       - setWeight: 100
