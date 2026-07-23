@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: demo-app
-          image: amit1159/starbucks
+          image: amit1159/hotstar
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
